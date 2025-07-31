@@ -1,104 +1,25 @@
-# Cloud Governance Gone Rogue – Azure Policy Lab
+# Azure Policy Lab - MapleTech Solutions
 
-### Course: CST8919 – DevOps Security and Compliance  
-### Lab – Enforcing Organizational Policies in the Cloud  
----
+## Summary of the lab
+In this lab, I implemented Azure Policy guardrails for MapleTech Solutions to enforce cloud compliance by restricting resource deployment to the Canada Central region, requiring a `ProjectName` tag, and blocking public IP creation. By grouping these policies into a single initiative and assigning it to a resource group, I ensured consistent and automated enforcement of organizational security standards.
 
-## Scenario
+## Explanation of each policy
 
-Welcome to **MapleTech Solutions**, a rapidly growing Canadian cloud-native company.
+**Only-CanadaCentral:** This policy denies the creation of any Azure resources outside of the Canada Central region to enforce data residency.
 
-You’ve just been hired as a **Cloud Security Engineer**, and during your onboarding, you're told:
+**Require-ProjectName-Tag:** This policy blocks the deployment of any resource that does not include a `ProjectName` tag, ensuring proper tagging for management and compliance.
 
-> “Developers are deploying resources across the globe, exposing public IPs, and skipping tags. We need order. Lock things down and enforce our cloud compliance policies — starting today.”
+**Deny-Public-IP:** This policy prevents the creation of public IP addresses to reduce external attack surfaces and enhance cloud security.
 
-Your mission is to bring **governance, security, and compliance** to Azure using **Azure Policy**.
+## Challenges and lessons learned
+One challenge was making sure policies were specific enough to enforce compliance without disrupting essential developer workflows or existing resources. Through this lab, I learned the importance of carefully testing policies in a controlled environment to ensure they provide security and governance while still supporting business productivity.
 
----
+## Video Demo
+https://www.youtube.com/watch?v=yBLAs9ONHqg
 
-## Lab Objectives
+## Screenshots
+![enter image description here](https://raw.githubusercontent.com/lian0138/25S_CST8919_Lab_3/refs/heads/main/screenshots/initiativeDefinition_1.png)
+![enter image description here](https://raw.githubusercontent.com/lian0138/25S_CST8919_Lab_3/refs/heads/main/screenshots/initiativeDefinition_2.png)
+![enter image description here](https://raw.githubusercontent.com/lian0138/25S_CST8919_Lab_3/refs/heads/main/screenshots/assignInitiative.png)
 
-- Create and assign **Azure Policies** and a **Policy Initiative**
-- Enforce:
-  - Region restriction to **Canada Central**
-  - Mandatory tagging (`ProjectName`)
-  - No public IP addresses
-- Test enforcement with sample deployments
----
 
-## Part 1: Define the Guardrails
-
-You will create **three custom Azure Policies**.
-
-### Policy 1: Region Lockdown
-- **Name**: `Only-CanadaCentral`
-- **Effect**: Deny
-- **Description**: Denies any resource that is not being deployed in the `Canada Central` region.
-
-### Policy 2: Mandatory Tagging
-- **Name**: `Require-ProjectName-Tag`
-- **Effect**: Deny
-- **Description**: Requires all resources to include a `ProjectName` tag.
-
-### Policy 3: Block Public IPs
-- **Name**: `Deny-Public-IP`
-- **Effect**: Deny
-- **Description**: Prevents creation of Public IP addresses.
-
----
-
-## Part 2: Group Policies into an Initiative
-
-### 🔹 Create a Policy Initiative:
-- **Name**: `MapleTech Secure Foundation`
-- **Add all three policies** you just created.
-- **Category**: `Security` or `Compliance`
-
----
-
-## Part 3: Assign the Initiative
-
-- Assign the initiative to a **resource group**.
-- Ensure the **enforcement mode** is set to `Enforce` (deny).
-
----
-
-## Part 4: Simulate Developer Activity
-
-Test the enforcement of your policies by simulating typical developer behavior.
-
-### Test Cases
-
-| Action | Expected Outcome |
-|--------|------------------|
-| Deploy VM in **East US** | ❌ Denied |
-| Deploy Storage Account **without `ProjectName` tag** | ❌ Denied |
-| Create a **Public IP** | ❌ Denied |
-| Deploy VM in **Canada Central** with tag | ✅ Allowed |
-
-Take **screenshots** of each attempt and result.
-
-## Part 5: Create a 10-Minute Video Demo
-
-Record a max **10-minute video** where you:
-
-1. Explain the scenario and what policies you created.
-2. Show the policy definitions in the Azure Portal.
-3. Demonstrate the test cases both failed and successful deployments.
-4. Highlight how Azure Policy enforced the rules.
-5. Conclude with your takeaways.
----
-
-## Submission Checklist
-
-Create a folder in your GitHub repo called `/policy-lab` and include:
-
-- `screenshots/` folder with key screenshots
-- `policy-definitions/` folder with JSON files for your custom policies
-- **Video demo link** (in `README.md`)
-- A short `README.md` with:
-  - Summary of the lab
-  - Explanation of each policy
-  - Challenges and lessons learned
-
----
