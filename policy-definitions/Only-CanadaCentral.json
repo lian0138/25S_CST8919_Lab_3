@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "displayName": "Only allow resources in Canada Central",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "Deny any resource creation outside of Canada Central.",
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "field": "location",
+        "notEquals": "canadacentral"
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}

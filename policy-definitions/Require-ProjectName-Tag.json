@@ -1,0 +1,18 @@
+{
+  "properties": {
+    "displayName": "Require ProjectName tag on resources",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "Ensure all resources have the ProjectName tag.",
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "field": "[concat('tags[', 'ProjectName', ']')]",
+        "exists": "false"
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}
